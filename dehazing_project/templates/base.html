@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ...existing code... -->
+    <style>
+        /* ...existing code... */
+        
+        /* Features Section */
+        .features {
+            padding: 50px 20px;
+            background-color: #eef2f3;
+            text-align: center;
+        }
+        
+        .features h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #1e3d58;
+        }
+        
+        .features .feature-item {
+            margin: 20px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        /* Enhanced Upload Section */
+        .upload-container input {
+            margin: 15px 0;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .upload-container button {
+            padding: 15px 30px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        
+        .upload-container button:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Footer Enhancements */
+        .footer .social-links {
+            margin-top: 10px;
+        }
+        
+        .footer .social-links a {
+            margin: 0 10px;
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .footer .social-links a:hover {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <!-- ...existing code... -->
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h3>Why Choose DehazeX?</h3>
+        <div class="feature-item">
+            <p>✔ Advanced dehazing algorithms for crystal-clear satellite images.</p>
+        </div>
+        <div class="feature-item">
+            <p>✔ Real-time pollution analysis for actionable insights.</p>
+        </div>
+        <div class="feature-item">
+            <p>✔ Easy-to-use interface for seamless image processing.</p>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer class="footer" id="contact">
+        <p>© 2025 DehazeX. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://twitter.com" target="_blank">Twitter</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+    
+    <script>
+        // ...existing code...
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.header nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

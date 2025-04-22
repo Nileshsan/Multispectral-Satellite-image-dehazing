@@ -1,0 +1,147 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multispectral Image Dehazing Center</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}">Multispectral Dehazing</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dehazing_page' %}">Image Dehazing</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="functionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Functions
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="functionsDropdown">
+              <li><a class="dropdown-item" href="{% url 'dehazing_page' %}">Upload Image</a></li>
+              <li><a class="dropdown-item" href="{% url 'users:processing_history' %}">Processing History</a></li>
+              <li><a class="dropdown-item" href="{% url 'users:advanced_options' %}">Advanced Options</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Login{% if user.is_authenticated %} - {{ user.username }}{% endif %}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Introduction Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Left Side: Text Content -->
+        <div class="col-md-6">
+          <h1 class="display-4">Welcome to the Multispectral Satellite Image Dehazing Center</h1>
+          <p class="lead">Explore cutting-edge technology to remove haze from multispectral satellite images and enhance clarity for better analysis.</p>
+          <a href="{% url 'dehazing_page' %}" class="btn btn-primary btn-lg mt-3">Try Image Dehazing Now</a>
+        </div>
+        <!-- Right Side: Image or Illustration -->
+        <div class="col-md-6">
+          <div class="image-container">
+              <img src="{% static 'images/dehazing_demo.jpeg' %}" alt="Multispectral Dehazing Demo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <h2 class="mb-4 text-center">Our Features</h2>
+      <div class="row">
+        <div class="col-md-3 mb-3">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <h5 class="card-title">Automated Dehazing</h5>
+              <p class="card-text">Automatically process images using state-of-the-art algorithms.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <h5 class="card-title">High Resolution Output</h5>
+              <p class="card-text">Maintain high fidelity and clarity after dehazing.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <h5 class="card-title">Real-Time Processing</h5>
+              <p class="card-text">Experience fast processing speeds for immediate results.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <div class="card h-100 text-center">
+            <div class="card-body">
+              <h5 class="card-title">User-Friendly Interface</h5>
+              <p class="card-text">Easy-to-use tools to perform complex image enhancements.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="mb-4 text-center">Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeadingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne" aria-expanded="false" aria-controls="faqCollapseOne">
+              What is multispectral image dehazing?
+            </button>
+          </h2>
+          <div id="faqCollapseOne" class="accordion-collapse collapse" aria-labelledby="faqHeadingOne" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Multispectral image dehazing is the process of removing haze from images captured in multiple spectral bands, enhancing their clarity and detail.
+            </div>
+          </div>
+        </div>
+        <!-- Additional FAQ Items can be added here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Support Section -->
+  <section id="support" class="py-4">
+    <div class="container text-center">
+      <p>Need support? Call us at <strong>+1-800-987-6543</strong> or email <a href="mailto:support@dehazingcenter.com">support@dehazingcenter.com</a></p>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

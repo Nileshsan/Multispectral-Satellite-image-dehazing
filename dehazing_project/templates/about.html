@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Multispectral Satellite Image Dehazing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+
+    <style>
+
+
+      body {
+        background-color: #fff;
+        color: #333;
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      /* Fixed Home button at the top-left corner */
+      .home-link {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 999;
+      }
+      
+      .home-link a {
+        background:rgb(0, 0, 0);
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 700;
+        transition: background-color 0.3s ease;
+      }
+      
+      .home-link a:hover {
+        background:rgb(0, 0, 0);
+      }
+      
+      /* Header styling with a soft beige-to-white gradient */
+      .about-header {
+        text-align: center;
+        padding: 80px 20px;
+        background: linear-gradient(135deg, #f5f5dc, #fff);
+      }
+      
+      .about-header h1 {
+        margin: 0 0 10px;
+        font-size: 2.8rem;
+        font-weight: 700;
+      }
+      
+      .about-header p {
+        font-size: 1.3rem;
+        margin: 0;
+      }
+      
+      /* About content styling */
+      .about-content {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 40px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .about-content p,
+      .about-content li {
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+      
+      .about-content h2 {
+        margin-top: 30px;
+        font-size: 2rem;
+        color:rgb(0, 0, 0);
+      }
+      
+      .about-content ul {
+        list-style-type: disc;
+        padding-left: 20px;
+      }
+      
+      .about-content ul li {
+        margin-bottom: 10px;
+      }
+      
+
+     /* Footer Section */
+      .footer {
+          background-color: #333;
+          color: white;
+          text-align: center;
+          padding: 20px;
+          margin-top: 40px;
+      }
+
+      .footer p {
+          margin: 10px 0;
+          font-size: 1rem;
+      }
+
+      .social-links {
+          margin-top: 10px;
+      }
+
+      .social-links a {
+          color: white;
+          text-decoration: none;
+          margin: 0 15px;
+          font-size: 1rem;
+          font-weight: 600;
+          transition: color 0.3s ease;
+      }
+
+      .social-links a:hover {
+          color: #f5f5dc;
+      }
+
+
+
+    </style>
+
+
+
+
+    <div class="home-link">
+      <a href="{% url 'home' %}">Home</a>
+    </div>
+
+    <div class="about-header">
+      <h1>About Multispectral Satellite Image Dehazing</h1>
+      <p>Discover our mission, technology, and advantages</p>
+    </div>
+
+    
+
+    <div class="about-content" id="aboutContent">
+      <p>
+        Welcome to the Multispectral Satellite Image Dehazing Center. Our goal is to deliver cutting-edge technology that removes atmospheric haze from satellite images, enhancing clarity and detail for a variety of applications.
+      </p>
+      
+      <h2>Our Mission</h2>
+      <p>
+        We strive to revolutionize satellite image processing by providing advanced dehazing tools that boost accuracy and efficiency in environmental monitoring, agriculture, urban planning, and more.
+      </p>
+      
+      <h2>Our Technology</h2>
+      <p>
+        Leveraging state-of-the-art algorithms and multispectral data, our system minimizes haze interference without compromising the high-resolution details needed for precise analysis.
+      </p>
+      
+      <h2>Why Choose Us?</h2>
+      <ul>
+        <li>Advanced multispectral image dehazing algorithms.</li>
+        <li>High-fidelity and detailed image outputs.</li>
+        <li>User-friendly interface with real-time processing.</li>
+        <li>Proven technology supporting various industries.</li>
+      </ul>
+      
+      <p>
+        Explore our platform to discover how our technology can enhance your satellite imagery analysis and unlock valuable insights.
+      </p>
+    </div>
+
+
+          <!-- Footer Section -->
+    <footer class="footer" id="contact">
+        <p>© 2025 DehazeX. All Rights Reserved.</p>
+        <div class="social-links">
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+            <a href="https://twitter.com" target="_blank">Twitter</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
