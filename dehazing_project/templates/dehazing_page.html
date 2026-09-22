@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +55,7 @@
     }
     /* Hero Section */
     .hero {
-      background: linear-gradient(to right, rgba(245,245,220,0.8), rgba(245,245,220,0.8)), url('images/satellite-bg.jpg');
+      background: linear-gradient(to right, rgba(245,245,220,0.8), rgba(245,245,220,0.8)), url('{% static "images/dehazing_demo.jpeg" %}');
       background-size: cover;
       background-position: center;
       height: 80vh;

@@ -1,95 +1,97 @@
-# 🛰️ X-Dehazed: Hybrid GAN-Based Multispectral Satellite Image Dehazing
+# Multispectral Image Dehazing
 
-A novel deep learning framework for dehazing multispectral satellite images by sequentially combining **CycleGAN** and **Pix2Pix GAN**, with intelligent post-analysis using a **local LLM (LLaMA)**. This approach enhances visibility and structural clarity of satellite images affected by atmospheric haze, making it suitable for real-world applications like environmental monitoring, urban planning, and disaster response.
+A Django application for applying a trained CycleGAN dehazing model to uploaded images.
 
----
+## Requirements
 
-## 📌 Key Features
+- Windows, macOS, or Linux
+- Python 3.12 recommended
+- 4 GB or more of available memory for TensorFlow and the model
 
-- 🌫️ **Hybrid GAN Pipeline**: CycleGAN for unpaired image translation + Pix2Pix for paired refinement.
-- 🧠 **LLM Integration**: Utilizes LLaMA to provide automated alerts and descriptive analysis.
-- 🖼️ **High-Resolution Outputs**: Incorporates perceptual loss & Laplacian pyramid for enhanced clarity.
-- 🌐 **Web Interface**: User-friendly Django web app for image upload, processing, and PDF report generation.
+## Quick start
 
----
+From the repository root in PowerShell:
 
-## 🚀 Technologies Used
-
-| Category       | Tools & Frameworks                          |
-|----------------|---------------------------------------------|
-| Frontend       | HTML, CSS, Bootstrap, JavaScript            |
-| Backend        | Python, Django                              |
-| DL Frameworks  | TensorFlow, Keras                           |
-| Models         | Pix2Pix, CycleGAN, U-Net                    |
-| LLM Integration| LLaMA (local deployment)                    |
-| Image Handling | OpenCV, Keras Image Preprocessing           |
-| UI/UX          | Django Templates + JS Interactivity         |
-
----
-
-## 🧠 System Architecture
-
-1. **Input**: Hazy JPG/RGB satellite image
-2. **Preprocessing**: Resize to 256x256, normalize, spectral alignment
-3. **Dehazing Flow**:
-    - `CycleGAN` for unpaired translation
-    - `Pix2Pix` for paired refinement
-4. **Postprocessing**:
-    - Denormalize, upscale using Laplacian Pyramid
-    - Analyze using **LLaMA** to generate insights
-5. **Output**: Dehazed image + PDF report (alerts, analysis)
-
----
-
-## 📂 Dataset
-
-- **Custom Dataset**: Hazy and clear multispectral satellite images
-- **Additional Datasets**: 
-  - [I-HAZE](http://cs-chan.com/downloads/ihaze_dataset.zip)
-  - [O-HAZE](http://cs-chan.com/downloads/ohaze_dataset.zip)
-- Supports both **paired** and **unpaired** image formats
-
----
-
-## 📈 Results
-
-| Metric   | Value (Hybrid Pipeline) |
-|----------|-------------------------|
-| PSNR     | ↑ Improved significantly over baselines |
-| SSIM     | ↑ Better structural consistency |
-| FID      | ↓ Lower than single-model approaches |
-| Loss     | Final: ~0.29 after 200 epochs |
-
-### 🔍 Visual Results
-- Clearer textures
-- Sharper edges
-- Realistic color balance
-- Side-by-side comparisons with original hazy images
-
----
-
-## 🖥️ Web Application
-
-### Features:
-- Upload satellite image (JPG/RGB)
-- Select model (CycleGAN, Pix2Pix)
-- View real-time results
-- Download dehazed image + report
-
-### Screens:
-- Home/Login
-- Upload & Result Preview
-- Dehazed Image Display
-- PDF Report with LLM Summary
-
----
-
-## 📜 How to Run Locally
-
-```bash
-git clone https://github.com/Nileshsan/Multispectral-Satellite-image-dehazing.git
-cd Multispectral-Satellite-image-dehazing
-pip install -r requirements.txt
-
-# Run Django server
+```powershell
+cd dehazing_project
+py -3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+Copy-Item .env.example .env
+python manage.py migrate
+python manage.py check
 python manage.py runserver
+```
+
+Open http://127.0.0.1:8000/ in a browser.
+
+The default database is the repository's SQLite file at `dehazing_project/db.sqlite3`. TensorFlow is loaded only when an image is processed.
+
+## Share on a local network
+
+To let another device on the same Wi-Fi or LAN open the application, find the host computer's IPv4 address with `ipconfig`, then run:
+
+```powershell
+python manage.py runserver 0.0.0.0:8000
+```
+
+Add the host computer's address to `DJANGO_ALLOWED_HOSTS` in `.env`:
+
+```dotenv
+DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost,192.168.1.25
+```
+
+The other device can then open `http://192.168.1.25:8000/`. Allow Python or TCP port 8000 through Windows Firewall when Windows asks. This is suitable for a trusted local demonstration only; do not expose Django's development server directly to the public internet.
+
+## Run as a local application server
+
+For a more stable Windows demonstration server, use Waitress:
+
+```powershell
+waitress-serve --listen=0.0.0.0:8000 dehazing_project.wsgi:application
+```
+
+Use a real reverse proxy, HTTPS, secret management, and a production database before public deployment.
+
+## Configuration
+
+Copy `dehazing_project/.env.example` to `dehazing_project/.env`. The `.env` file is intentionally ignored by Git.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `DJANGO_SECRET_KEY` | development placeholder | Secret used by Django; replace it outside local development |
+| `DJANGO_DEBUG` | `1` | Set to `0` for deployment |
+| `DJANGO_SECURE_SSL` | `0` | Set to `1` only when HTTPS is configured; enables secure cookies, redirects, and HSTS |
+| `DJANGO_ALLOWED_HOSTS` | `127.0.0.1,localhost` | Comma-separated hostnames or IP addresses |
+| `DJANGO_CSRF_TRUSTED_ORIGINS` | empty | Comma-separated full origins such as `https://example.com` |
+| `DEHAZING_MODEL_PATH` | repository model directory | Optional absolute path to another SavedModel |
+| `USE_POSTGRES` | `0` | Set to `1` to use `DATABASE_URL` instead of SQLite |
+| `DATABASE_URL` | empty | PostgreSQL connection URL when PostgreSQL is enabled |
+| `POSTGRES_SSLMODE` | `prefer` | PostgreSQL SSL mode; use `require` when the server supports SSL |
+
+## Project layout
+
+- `dehazing_project/`: Django project and application
+- `dehazing_project/dehazing_app/`: views, forms, model loader, and migrations
+- `dehazing_project/templates/`: HTML templates
+- `dehazing_project/static/`: CSS, JavaScript, and images
+- `Nilesh_cycleGAN_dehaze_saved_model/`: default TensorFlow SavedModel
+- `*.ipynb`: training and architecture notebooks
+
+## Git workflow
+
+Do not commit `.env`, passwords, API keys, generated media, `.venv`, Python caches, or local database files. Before pushing:
+
+```powershell
+git status
+git add README.md LICENSE .gitignore dehazing_project
+git commit -m "Prepare project for local deployment"
+git push origin main
+```
+
+If your default branch is not `main`, replace it with the branch shown by `git branch --show-current`.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE). The trained model and research materials may have separate terms; verify those terms before redistributing them.

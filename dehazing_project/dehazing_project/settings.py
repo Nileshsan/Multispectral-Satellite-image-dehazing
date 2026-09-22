@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse
-from django.core.exceptions import ImproperlyConfigured  # Add this import
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,12 +24,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-%(z1n&8tp-7ot5%xk!hse5ilpv9abjjp(1mxzyhfl21mm(r3*5'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'local-development-only-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', '1').lower() in {'1', 'true', 'yes'}
+SECURE_SSL = os.getenv('DJANGO_SECURE_SSL', '0').lower() in {'1', 'true', 'yes'}
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+    if host.strip()
+]
 
 
 # Application definition
@@ -81,36 +85,39 @@ WSGI_APPLICATION = 'dehazing_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 
-# Add these at the top of your settings.py
-
-
-load_dotenv(dotenv_path=os.path.join(BASE_DIR, '.env'))  # Explicitly load .env file
+load_dotenv(dotenv_path=BASE_DIR / '.env')
 
 DATABASE_URL = os.getenv("DATABASE_URL", "")
-print(f"DATABASE_URL: {DATABASE_URL}")  # Debugging: Print the DATABASE_URL
+USE_POSTGRES = os.getenv("USE_POSTGRES", "0").lower() in {"1", "true", "yes"}
 
-if not DATABASE_URL:
-    raise ImproperlyConfigured("The DATABASE_URL environment variable is not set.")
+if USE_POSTGRES:
+    if not DATABASE_URL:
+        raise RuntimeError("USE_POSTGRES is enabled, but DATABASE_URL is not set.")
 
-tmpPostgres = urlparse(DATABASE_URL)
-print(f"Parsed tmpPostgres: {tmpPostgres}")  # Debugging: Print the parsed result
+    postgres_url = urlparse(DATABASE_URL)
+    if not postgres_url.hostname or not postgres_url.path:
+        raise RuntimeError("DATABASE_URL is malformed or missing required components.")
 
-if not tmpPostgres.hostname or not tmpPostgres.path:
-    raise ImproperlyConfigured("The DATABASE_URL is malformed or missing required components.")
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.lstrip('/'),  # Use lstrip('/') to remove leading slash
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': tmpPostgres.port or 5432,  # Default to 5432 if port is not specified
-        'OPTIONS': {
-            'sslmode': 'require',  # Ensure SSL is required
-        },
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': postgres_url.path.lstrip('/'),
+            'USER': postgres_url.username,
+            'PASSWORD': postgres_url.password,
+            'HOST': postgres_url.hostname,
+            'PORT': postgres_url.port or 5432,
+            'OPTIONS': {
+                'sslmode': os.getenv('POSTGRES_SSLMODE', 'prefer'),
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -146,8 +153,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Add this to serve static files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -161,6 +169,15 @@ AUTH_USER_MODEL = 'dehazing_app.CustomUser'
 
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',')
+    if origin.strip()
+]
+
+SECURE_SSL_REDIRECT = SECURE_SSL
+SESSION_COOKIE_SECURE = SECURE_SSL
+CSRF_COOKIE_SECURE = SECURE_SSL
+SECURE_HSTS_SECONDS = 31536000 if SECURE_SSL else 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = SECURE_SSL
+SECURE_HSTS_PRELOAD = SECURE_SSL

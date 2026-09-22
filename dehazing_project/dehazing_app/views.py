@@ -75,9 +75,6 @@ def dehazing_page(request):
 
 
 
-# Get the preloaded model
-model = get_model()
-
 def dehaze_image(request):
     if request.method == "POST" and request.FILES["image"]:
         uploaded_file = request.FILES["image"]
@@ -90,7 +87,8 @@ def dehaze_image(request):
         image = np.array(image) / 255.0  # Normalize to [0,1]
         image = np.expand_dims(image, axis=0)  # Add batch dimension
         
-        # Run the model
+        # Load the model only when an image is processed.
+        model = get_model()
         dehazed_image = model.predict(image)[0]  # Get the first (and only) output
         
         # Convert the output back to an image

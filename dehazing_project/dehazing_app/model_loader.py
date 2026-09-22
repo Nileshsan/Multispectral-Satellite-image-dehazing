@@ -1,20 +1,21 @@
 import os
-import tensorflow as tf
-from keras.layers import TFSMLayer
+from pathlib import Path
 
-# Define the path to your saved model folder
-MODEL_PATH = os.path.join("C:/Users/Admin/multispectral_image_dehazing", "Nilesh_cycleGAN_dehaze_saved_model")
-
-# Load the CycleGAN SavedModel as a Keras layer
-model = TFSMLayer(
-    MODEL_PATH,
-    call_endpoint="serving_default"  # Ensure this matches your model's signature
+MODEL_PATH = Path(
+    os.getenv(
+        "DEHAZING_MODEL_PATH",
+        Path(__file__).resolve().parents[2] / "Nilesh_cycleGAN_dehaze_saved_model",
+    )
 )
+model = None
+
 
 def get_model():
-    """Returns the loaded CycleGAN model as a layer."""
-    return model
+    """Load and return the dehazing model once, when image processing needs it."""
+    global model
+    if model is None:
+        import tensorflow as tf
+        from keras.layers import TFSMLayer
 
-# Verify the loaded model's signatures (for debugging)
-loaded = tf.saved_model.load(MODEL_PATH)
-print("Available Signatures:", list(loaded.signatures.keys()))
+        model = TFSMLayer(str(MODEL_PATH), call_endpoint="serving_default")
+    return model

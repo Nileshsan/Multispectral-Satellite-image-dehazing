@@ -1,0 +1,7 @@
+Django==4.2
+Pillow==10.0.0
+python-dotenv==0.21.0
+numpy==2.2.6
+tensorflow==2.20.0
+psycopg2-binary==2.9.11
+waitress==3.0.2
