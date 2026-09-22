@@ -3,6 +3,8 @@
 __pycache__/
 *.py[cod]
 .env
+credentials.txt
+dehazing_project/credentials.txt
 *.sqlite3
 media/*
 staticfiles/
