@@ -1,0 +1,7 @@
+/* auth.css - for login/register */
+body{font-family:Segoe UI,Roboto,Arial;background:beige;margin:0;padding:0;display:flex;flex-direction:column;align-items:center}
+.navbar{width:100%;display:flex;justify-content:space-between;align-items:center;background:#222;padding:15px 30px;color:#fff}
+.login-container{background:#fff;padding:20px;margin-top:50px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);width:350px;text-align:center}
+.login-container input{width:90%;padding:10px;margin:10px 0;border:1px solid #ccc;border-radius:5px}
+.login-container button{width:100%;padding:10px;background:#222;color:#fff;border:none;border-radius:5px}
+.register-link{margin-top:15px;font-size:14px}

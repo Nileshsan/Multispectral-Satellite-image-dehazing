@@ -137,7 +137,7 @@ Copy `dehazing_project/.env.example` to `dehazing_project/.env`. The `.env` file
 - `dehazing_project/dehazing_app/`: views, forms, model loader, and migrations
 - `dehazing_project/templates/`: HTML templates
 - `dehazing_project/static/`: CSS, JavaScript, and images
-- `Nilesh_cycleGAN_dehaze_saved_model/`: default TensorFlow SavedModel
+- `cycleGAN_dehaze_saved_model/`: default TensorFlow SavedModel
 - `*.ipynb`: training and architecture notebooks
 
 ## Git workflow

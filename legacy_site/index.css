@@ -1,0 +1,21 @@
+/* index.css - styles for the index page */
+:root{--dark:#111;--muted:#6c757d;--card:#fff;--primary:#0d6efd}
+html,body{height:100%;margin:0;font-family:Segoe UI, Roboto, Arial, sans-serif;background:#faf8f2;color:#111}
+.container{max-width:980px;margin:0 auto;padding:1rem}
+.navbar{background:#222;color:#fff;padding:.75rem 0}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.navbar-brand{font-weight:700;color:var(--primary);text-decoration:none}
+.navbar-nav{list-style:none;display:flex;gap:.5rem;margin:0;padding:0}
+.nav-link{color:#fff;text-decoration:none}
+.hero{padding:3rem 0;background:linear-gradient(90deg,#fff,#f8f8f0)}
+.hero-inner{display:flex;gap:1rem;align-items:center}
+.hero-left{flex:1}
+.hero-right{flex:1;text-align:center}
+.hero-right img{max-width:100%;border-radius:6px}
+.features{padding:2rem 0}
+.features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.card{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.06);text-align:center}
+.footer{padding:1rem;text-align:center;color:var(--muted)}
+.btn{display:inline-block;padding:.5rem .85rem;border-radius:6px;text-decoration:none}
+.btn.primary{background:var(--primary);color:#fff}
+@media (max-width:720px){.hero-inner{flex-direction:column}.features-grid{grid-template-columns:repeat(2,1fr)}}

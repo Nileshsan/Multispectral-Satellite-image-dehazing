@@ -1,0 +1,12 @@
+/* dehaze.css - styles for dehazing page */
+:root{--card:#fff;--muted:#6c757d;--primary:#0d6efd}
+html,body{margin:0;font-family:Segoe UI, Roboto, Arial;background:#fff}
+.container{max-width:980px;margin:0 auto;padding:1rem}
+.main{display:flex;flex-direction:column;gap:1rem;padding-top:1rem}
+.upload{background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);text-align:center}
+.result{display:none;background:var(--card);padding:1rem;border-radius:8px}
+.images{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+.images img{width:256px;border-radius:6px;border:1px solid #eef2f6}
+#message{color:var(--muted)}
+.btn.primary{background:var(--primary);color:#fff;border:none;padding:.5rem .85rem;border-radius:6px}
+@media (max-width:720px){.images{flex-direction:column}.images img{width:100%}}

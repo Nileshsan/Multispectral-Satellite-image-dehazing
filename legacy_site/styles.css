@@ -1,0 +1,28 @@
+/* styles.css - only CSS code as requested */
+:root{
+  --bg:#f5f7fa;
+  --card:#ffffff;
+  --muted:#6c757d;
+  --primary:#0d6efd;
+}
+html,body{height:100%;margin:0;font-family:Segoe UI, Roboto, Arial, sans-serif;background:var(--bg);color:#111}
+.container{max-width:980px;margin:0 auto;padding:1rem}
+.navbar{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,0.06);padding:.75rem 0}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.navbar-brand{font-weight:700;color:var(--primary);text-decoration:none}
+.nav-actions{display:flex;gap:.5rem;align-items:center}
+.file-btn{background:#e9ecef;border-radius:6px;padding:.45rem .7rem;cursor:pointer;display:inline-block}
+.file-btn input{display:none}
+.btn{border:0;padding:.5rem .85rem;border-radius:6px;cursor:pointer}
+.btn.primary{background:var(--primary);color:#fff}
+.main{display:flex;gap:1rem;margin-top:1rem}
+.preview{flex:1;background:var(--card);padding:1rem;border-radius:8px;box-shadow:0 2px 6px rgba(2,6,23,0.06);text-align:center}
+.preview h2{margin:0 0 .75rem;font-size:1rem;color:var(--muted)}
+.preview img{max-width:100%;height:auto;border-radius:6px;border:1px solid #eef2f6}
+.footer{margin-top:1rem;padding:1rem;text-align:center;color:var(--muted)}
+
+/* Responsive */
+@media (max-width:720px){
+  .main{flex-direction:column}
+  .navbar .container{flex-direction:column;gap:.5rem;align-items:flex-start}
+}

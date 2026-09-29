@@ -4,7 +4,7 @@ from pathlib import Path
 MODEL_PATH = Path(
     os.getenv(
         "DEHAZING_MODEL_PATH",
-        Path(__file__).resolve().parents[2] / "Nilesh_cycleGAN_dehaze_saved_model",
+        Path(__file__).resolve().parents[2] / "cycleGAN_dehaze_saved_model",
     )
 )
 model = None

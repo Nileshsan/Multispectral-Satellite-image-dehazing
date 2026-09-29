@@ -1,0 +1,19 @@
+/* bootstrap.css - minimal subset of Bootstrap-like utilities (only CSS) */
+/* This file intentionally small — include only the few utilities used by index.html */
+*{box-sizing:border-box}
+.btn{display:inline-block;font-weight:400;text-align:center;vertical-align:middle;user-select:none}
+.container{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
+@media (min-width:576px){.container{max-width:540px}}@media (min-width:768px){.container{max-width:720px}}@media (min-width:992px){.container{max-width:960px}}
+
+/* Buttons */
+.btn{padding:.375rem .75rem;border-radius:.25rem}
+.btn.primary{background-color:#0d6efd;color:#fff;border:1px solid #0d6efd}
+
+/* Simple responsive utilities used */
+@media (max-width:720px){.d-flex{display:flex}.flex-column{flex-direction:column}}
+
+/* Navbar small layout */
+.navbar{padding:.5rem 1rem}
+.navbar-brand{font-size:1.125rem}
+
+/* End of bootstrap.css */

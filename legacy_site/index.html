@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Multispectral Image Dehazing — Demo</title>
+    <!-- Local CSS only -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Local bootstrap (separate file as requested) -->
+    <link rel="stylesheet" href="bootstrap.css">
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a class="navbar-brand" href="#">Dehaze Demo</a>
+        <div class="nav-actions">
+          <label class="file-btn">
+            Upload Image
+            <input id="fileInput" type="file" accept="image/*">
+          </label>
+          <button id="runBtn" class="btn primary">Run Dehaze</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container main">
+      <section class="preview">
+        <h2>Input</h2>
+        <img id="inputImg" alt="Input image preview" src="../media/input_015b344aa67b490a8f3ee35c5715dd47.jpg">
+      </section>
+
+      <section class="preview">
+        <h2>Output (simulated)</h2>
+        <img id="outputImg" alt="Output image preview" src="dehazed_output.jpg">
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">Model: cycleGAN_dehaze.keras — This demo shows frontend only.</div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
